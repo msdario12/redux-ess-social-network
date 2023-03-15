@@ -6,6 +6,28 @@ import { ReactionsButtons } from './ReactionsButtons.jsx'
 import { TimeAgo } from './TimeAgo.jsx'
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react'
+import { Spinner } from '../../components/Spinner'
+
+const PostExcerpt = ({ post }) => {
+  return(
+    <article className='post-excerpt'>
+      <h3>{post.title}</h3>
+      <div>
+        <PostAuthor userId={post.user}/>
+        <TimeAgo timestamp={post.date}/>
+      </div>
+      <p className="post-content">
+        {post.content.substring(0, 100)}
+      </p>
+
+      <ReactionsButtons post={post}/>
+      <Link to={`/posts/${post.id}`} className="button muted-button">
+        View Post
+      </Link>
+    </article>
+  )
+}
+
 
 
 export const PostsList = () => {
@@ -14,6 +36,7 @@ export const PostsList = () => {
   const dispatch = useDispatch();
 
   const postStatus = useSelector(state => state.posts.status)
+  const error = useSelector(state => state.posts.error)
 
   useEffect((() => {
     if (postStatus === 'idle') {
@@ -21,26 +44,26 @@ export const PostsList = () => {
     }
   }), [postStatus, dispatch])
 
-  // Sort posts in reverse chronological order by datetime string
-  const orderedPosts = posts.slice().sort((a, b) => b.date.localeCompare(a.date))
+  let content;
 
-  const rederedPosts = orderedPosts.map((post) => (
-    <article className="post-excerpt" key={post.id}>
-      <h3>{post.title}</h3>
-      <p className="post-content">{post.content.substring(0, 100)}</p>
-      <Link to={`/posts/${post.id}`} className="button muted-button">
-        View Post
-      </Link>
-      <PostAuthor userId={post.id} />
-      <TimeAgo timestamp={post.date} />
-      <ReactionsButtons post={post}/>
-    </article>
-  ))
+  if (postStatus === 'loading') {
+    content = <Spinner text='Loading ...'/>
+  } else if (postStatus === 'succeeded') {
+    // Sort posts in reverse chronological order by datetime string
+    const orderedPosts = posts
+      .slice()
+      .sort((a, b) => b.date.localeCompare(a.date))
+    content = orderedPosts.map(post => (
+      <PostExcerpt key={post.id} post={post} />
+    ))
+  } else if (postStatus === 'failed') {
+    content = <div>{error}</div>
+  }
 
-  return (
+    return (
     <section className="posts-list">
       <h2>Posts</h2>
-      {rederedPosts}
+      {content}
     </section>
   )
 }
