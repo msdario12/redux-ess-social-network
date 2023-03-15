@@ -17,7 +17,7 @@ const PostExcerpt = ({ post }) => {
         <TimeAgo timestamp={post.date}/>
       </div>
       <p className="post-content">
-        {post.content.substring(0, 100)}
+        {post.content.substring(0, 100)}...
       </p>
 
       <ReactionsButtons post={post}/>
