@@ -1,7 +1,7 @@
 import { client } from '../../api/client'
 const { createSlice, createAsyncThunk } = require('@reduxjs/toolkit')
 
-const fetchNotifications = createAsyncThunk(
+export const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
   async (_, { getState }) => {
     const allNotifications = selectAllNotifications(getState())
@@ -29,3 +29,4 @@ const notificationsSlice = createSlice({
 
 export default notificationsSlice.reducer
 export const selectAllNotifications = (state) => state.notifications
+
