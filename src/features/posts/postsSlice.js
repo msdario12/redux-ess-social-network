@@ -1,5 +1,5 @@
 import { sub } from 'date-fns'
-import {client} from '../../api/client'
+import { client } from '../../api/client'
 
 const { createSlice, nanoid, createAsyncThunk } = require('@reduxjs/toolkit')
 
@@ -14,15 +14,16 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   return response.data
 })
 
-export const addNewPost = createAsyncThunk('posts/addNewPost',
-// The payload creator receives the partial `{title, content, user}` object
-async(initialPost) => {
-  // We send the initial data to the fake API server
-  const response = await client.post('fakeApi/posts', initialPost)
-  // The response includes the complete post object, including unique ID
-  return response.data
-})
-
+export const addNewPost = createAsyncThunk(
+  'posts/addNewPost',
+  // The payload creator receives the partial `{title, content, user}` object
+  async (initialPost) => {
+    // We send the initial data to the fake API server
+    const response = await client.post('fakeApi/posts', initialPost)
+    // The response includes the complete post object, including unique ID
+    return response.data
+  }
+)
 
 const postsSlice = createSlice({
   name: 'posts',
@@ -55,7 +56,7 @@ const postsSlice = createSlice({
       },
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.pending, (state, action) => {
         state.status = 'loading'
@@ -73,11 +74,12 @@ const postsSlice = createSlice({
         // We can directly add the new post object to our posts array
         state.posts.push(action.payload)
       })
-  }
+  },
 })
 
 export default postsSlice.reducer
 export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions
 
 export const selectAllPosts = (state) => state.posts.posts
-export const selectPostById = (state, postId) => state.posts.posts.find((post) => post.id === postId)
+export const selectPostById = (state, postId) =>
+  state.posts.posts.find((post) => post.id === postId)

@@ -29,4 +29,3 @@ const notificationsSlice = createSlice({
 
 export default notificationsSlice.reducer
 export const selectAllNotifications = (state) => state.notifications
-

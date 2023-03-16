@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { selectAllNotifications } from './notificationsSlice'
-import { selectAllUsers } from 'src/features/users/usersSlice'
+import { selectAllUsers } from '../users/usersSlice'
 import { parseISO, formatDistanceToNow } from 'date-fns'
 
 export const NotificationsList = () => {
@@ -11,7 +11,7 @@ export const NotificationsList = () => {
     const date = parseISO(noti.date)
     const timeAgo = formatDistanceToNow(date)
     const user = users.find((user) => user.id === noti.user) || {
-      name: 'Unknow User',
+      name: 'Unknown User',
     }
 
     return (
