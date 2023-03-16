@@ -27,7 +27,7 @@ export const NotificationsList = () => {
     }
 
     const notificationClassName = classnames('notification', {
-      new: notifications.isNew,
+      new: noti.isNew,
     })
 
     return (

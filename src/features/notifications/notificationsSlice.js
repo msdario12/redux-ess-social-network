@@ -30,6 +30,7 @@ const notificationsSlice = createSlice({
       // Any notifications we've read are no longer new
       state.forEach((noti) => {
         noti.isNew = !noti.read
+        noti.read = false
       })
       // Sort with newest first
       state.sort((a, b) => b.date.localeCompare(a.date))
