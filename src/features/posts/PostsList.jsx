@@ -5,10 +5,10 @@ import { selectAllPosts, fetchPosts } from './postsSlice.js'
 import { ReactionsButtons } from './ReactionsButtons.jsx'
 import { TimeAgo } from './TimeAgo.jsx'
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Spinner } from '../../components/Spinner'
 
-const PostExcerpt = ({ post }) => {
+let PostExcerpt = ({ post }) => {
   return(
     <article className='post-excerpt'>
       <h3>{post.title}</h3>
@@ -28,7 +28,7 @@ const PostExcerpt = ({ post }) => {
   )
 }
 
-
+PostExcerpt = React.memo(PostExcerpt)
 
 export const PostsList = () => {
   const posts = useSelector(selectAllPosts)
