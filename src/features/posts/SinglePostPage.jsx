@@ -6,6 +6,7 @@ import { ReactionsButtons } from './ReactionsButtons';
 import { TimeAgo } from './TimeAgo';
 
 export const SinglePostPage = ({match}) => {
+    
     const {postId} = match.params
 
     const post= useSelector(state => selectPostById(state, postId))
