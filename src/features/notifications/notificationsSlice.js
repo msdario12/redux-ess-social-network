@@ -8,7 +8,7 @@ export const fetchNotifications = createAsyncThunk(
     const [latestNotification] = allNotifications
     const latestTimestamp = latestNotification ? latestNotification.date : ''
     const response = await client.get(
-      `fakeApi/notifications?since=${latestTimestamp}`
+      `/fakeApi/notifications?since=${latestTimestamp}`
     )
     return response.data
   }
