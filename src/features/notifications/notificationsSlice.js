@@ -17,7 +17,7 @@ export const fetchNotifications = createAsyncThunk(
 const notificationsSlice = createSlice({
   name: 'notifications',
   initialState: [],
-  reducer: {
+  reducers: {
     allNotificationsRead: (state, action) => {
       state.forEach((noti) => {
         noti.read = true
