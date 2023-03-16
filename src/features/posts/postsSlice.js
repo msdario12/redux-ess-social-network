@@ -80,5 +80,4 @@ export default postsSlice.reducer
 export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions
 
 export const selectAllPosts = (state) => state.posts.posts
-export const selectPostById = (state, postId) =>
-  state.posts.posts.find((post) => post.id === postId)
+export const selectPostById = (state, postId) => state.posts.posts.find((post) => post.id === postId)
